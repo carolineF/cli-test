@@ -1,0 +1,34 @@
+#!/usr/bin/env node
+
+const program = require('commander')
+const pkg = require('../package')
+const chalk = require('chalk')
+const download = require('download-git-repo');
+const ora = require('ora');
+const spinner = ora('Loading undead unicorns');
+
+/**
+ * version
+ */
+program
+  .version(chalk.green(`${pkg.version}`))
+
+/**
+* init 项目
+*/
+program
+  .command('init <template> <app-name>')
+  .description('初始化项目')
+  .option('-c, --clone', '使用git 克隆项目')
+  .action((template, appName, cmd) => {
+    spinner.start('开始下载');
+    download('direct:https://github.com/study-demo/cli-demo.git', appName, { clone: true }, err => {
+      if (err) {
+        spinner.fail(chalk.green('下载失败 \n' + err));
+        process.exit();
+      }
+      spinner.succeed(chalk.green(`下载成功`));
+    });
+  })
+
+program.parse(process.argv)
