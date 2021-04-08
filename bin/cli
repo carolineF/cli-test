@@ -6,16 +6,31 @@ const chalk = require('chalk')
 const download = require('download-git-repo');
 const ora = require('ora');
 const spinner = ora('Loading undead unicorns');
+const initial = require('../packages/commands/initial');
 
 /**
  * version
  */
 program
   .version(chalk.green(`${pkg.version}`))
+  .command('init')
+  .description('initialize your cli config')
+  .action(initial)
+
+/**
+*
+*/
+program
+  .command('start')
+  .description('开始打开项目')
+  .action(() => {
+    console.log('========')
+  })
 
 /**
 * init 项目
 */
+/**
 program
   .command('init <template> <app-name>')
   .description('初始化项目')
@@ -30,5 +45,5 @@ program
       spinner.succeed(chalk.green(`下载成功`));
     });
   })
-
-program.parse(process.argv)
+*/
+program.parse(process.argv);
