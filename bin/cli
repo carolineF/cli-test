@@ -5,8 +5,16 @@ const pkg = require('../package')
 const chalk = require('chalk')
 const download = require('download-git-repo');
 const ora = require('ora');
+const fs = require('fs');
+const path = require('path');
 const spinner = ora('Loading undead unicorns');
 const initial = require('../packages/commands/initial');
+const gmodule = require('../packages/commands/module');
+
+let config = {};
+if(fs.existsSync(path.resolve('cli.config.js'))) {
+  config = require(path.resolve('cli.config.js'));
+}
 
 /**
  * version
@@ -16,6 +24,13 @@ program
   .command('init')
   .description('initialize your cli config')
   .action(initial)
+
+program
+  .command('new [module]')
+  .description('generator a new module')
+  .action(function(module) {
+    gmodule(config, module);
+  })
 
 /**
 *

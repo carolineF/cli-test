@@ -4,8 +4,8 @@ module.exports = {
   // module 生成的目标目录
   modulePath: path.resolve('public'),
   // module template 目录
-  moduleTemplatePath: path.resolve('cli/templates/module'),
-  gitUrl: '',
+  moduleTemplatePath: path.resolve('packages/commands'),
+  gitUrl: 'https://github.com/carolineF/ng-test-project',
   npmBuildCommand: 'npm run release:',
   upload: {
     server: 'alioss',
