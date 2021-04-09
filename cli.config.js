@@ -6,7 +6,7 @@ module.exports = {
   // module template 目录
   moduleTemplatePath: path.resolve('packages/commands'),
   gitUrl: 'https://github.com/carolineF/ng-test-project',
-  npmBuildCommand: 'npm run release:',
+  npmBuildCommand: 'npm run test ',
   upload: {
     server: 'alioss',
     config: {

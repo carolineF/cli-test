@@ -10,6 +10,7 @@ const path = require('path');
 const spinner = ora('Loading undead unicorns');
 const initial = require('../packages/commands/initial');
 const gmodule = require('../packages/commands/module');
+const build = require('../packages/commands/build');
 
 let config = {};
 if(fs.existsSync(path.resolve('cli.config.js'))) {
@@ -30,6 +31,13 @@ program
   .description('generator a new module')
   .action(function(module) {
     gmodule(config, module);
+  })
+
+program
+  .command('build [module]')
+  .description('git build specify module and assets upload to CDN!')
+  .action(function(module) {
+    build(config, module)
   })
 
 /**
