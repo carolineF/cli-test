@@ -3,7 +3,7 @@ const fs = require('fs');
 const filetype = require('./filetype');
 const chalk = require('chalk');
 
-module.export = function(dir) {
+module.exports = function(dir) {
   let data = analysisAssets(dir);
   renderChart(data);
 }

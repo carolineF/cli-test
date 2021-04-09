@@ -12,6 +12,7 @@ const initial = require('../packages/commands/initial');
 const gmodule = require('../packages/commands/module');
 const build = require('../packages/commands/build');
 const question = require('../packages/commands/question');
+const analysis = require('../packages/lib/analysis')
 
 let config = {};
 if(fs.existsSync(path.resolve('cli.config.js'))) {
@@ -46,6 +47,13 @@ program
   .description('analysis dist files size and percent')
   .action(function() {
     question()
+  })
+
+program
+  .command('analysis')
+  .description('analysis dist files size and percent')
+  .action(function() {
+    analysis(config.upload.config.srcDir);
   })
 
 /**

@@ -10,6 +10,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "blessed": "^0.1.81",
+    "blessed-contrib": "^4.8.21",
     "chalk": "^2.3.0",
     "clui": "^0.3.6",
     "commander": "^2.11.0",
