@@ -11,6 +11,7 @@ const spinner = ora('Loading undead unicorns');
 const initial = require('../packages/commands/initial');
 const gmodule = require('../packages/commands/module');
 const build = require('../packages/commands/build');
+const question = require('../packages/commands/question');
 
 let config = {};
 if(fs.existsSync(path.resolve('cli.config.js'))) {
@@ -38,6 +39,13 @@ program
   .description('git build specify module and assets upload to CDN!')
   .action(function(module) {
     build(config, module)
+  })
+
+program
+  .command('question')
+  .description('analysis dist files size and percent')
+  .action(function() {
+    question()
   })
 
 /**
