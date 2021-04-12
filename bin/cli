@@ -13,6 +13,7 @@ const gmodule = require('../packages/commands/module');
 const build = require('../packages/commands/build');
 const question = require('../packages/commands/question');
 const analysis = require('../packages/lib/analysis')
+const { addCustomer, findCustomer } = require('../index')
 
 let config = {};
 if(fs.existsSync(path.resolve('cli.config.js'))) {
@@ -55,6 +56,20 @@ program
   .action(function() {
     analysis(config.upload.config.srcDir);
   })
+
+program
+  .command('add <firstname> <lastname> <phone> <email>')
+  .alias('a')
+  .description('Add a customer')
+  .action((firstname, lastname, phone, email) => {
+    addCustomer({firstname, lastname, phone, email})
+  })
+
+program
+  .command('find <name>')
+  .alias('f')
+  .description('Find a customer')
+  .action(name => findCustomer(name));
 
 /**
 *
