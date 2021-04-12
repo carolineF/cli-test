@@ -7,13 +7,36 @@ const download = require('download-git-repo');
 const ora = require('ora');
 const fs = require('fs');
 const path = require('path');
+const { prompt } = require('inquirer')
 const spinner = ora('Loading undead unicorns');
 const initial = require('../packages/commands/initial');
 const gmodule = require('../packages/commands/module');
 const build = require('../packages/commands/build');
 const question = require('../packages/commands/question');
 const analysis = require('../packages/lib/analysis')
-const { addCustomer, findCustomer } = require('../index')
+const { addCustomer, findCustomer, updateCustomer, removeCustomer, listCustomers } = require('../index')
+const questions = [
+  {
+    type: 'input',
+    name: 'firstname',
+    message: 'Customer First Name'
+  },
+  {
+    type: 'input',
+    name: 'lastname',
+    message: 'Customer Last Name'
+  },
+  {
+    type: 'input',
+    name: 'phone',
+    message: 'Customer Phone Number'
+  },
+  {
+    type: 'input',
+    name: 'email',
+    message: 'Customer Email Address'
+  }
+]
 
 let config = {};
 if(fs.existsSync(path.resolve('cli.config.js'))) {
@@ -58,11 +81,11 @@ program
   })
 
 program
-  .command('add <firstname> <lastname> <phone> <email>')
+  .command('add')
   .alias('a')
   .description('Add a customer')
-  .action((firstname, lastname, phone, email) => {
-    addCustomer({firstname, lastname, phone, email})
+  .action(() => {
+    prompt(questions).then(answers => addCustomer(answers))
   })
 
 program
@@ -71,6 +94,27 @@ program
   .description('Find a customer')
   .action(name => findCustomer(name));
 
+program
+  .command('update <_id>')
+  .alias('u')
+  .description('Update a customer')
+  .action((_id) => {
+    prompt(questions).then(answers => {
+      updateCustomer(_id, answers)
+    })
+  })
+
+program
+  .command('remove <_id>')
+  .alias('r')
+  .description('Remove a customer')
+  .action(_id => removeCustomer(_id));
+
+program
+  .command('list')
+  .alias('l')
+  .description('List a customer')
+  .action(() => listCustomers());
 /**
 *
 */
